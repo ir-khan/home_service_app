@@ -1,3 +1,8 @@
 import LoginScreen from "./LoginScreen";
 import Signup from "./signup";
-export { LoginScreen,Signup };
+import HomeScreen from "./HomeScreen";
+
+export {
+    LoginScreen,
+    HomeScreen,Signup
+};

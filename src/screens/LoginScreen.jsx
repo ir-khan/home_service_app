@@ -2,11 +2,25 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather, AntDesign } from "@expo/vector-icons";
+import { login } from "../services/AuthService";
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSecure, setIsSecure] = useState(true);
+
+  const handleLogin = async () => {
+    try {
+      const response = await login(email, password);
+      console.log(response);
+      if ( response == true ) {
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.heading} >Welcome Back</Text>
@@ -43,7 +57,7 @@ const LoginScreen = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => console.log('Login button pressed')}
+        onPress={handleLogin}
       >
         <Text style={styles.login}>Login</Text>
       </TouchableOpacity>
@@ -57,13 +71,13 @@ const LoginScreen = () => {
         <Text style={{ fontSize: 16 }}>Login with Apple</Text>
       </View>
       <View style={styles.inputContainer}>
-      <AntDesign name="google" size={24} color="#000" style={styles.socialIcon} />
-      <Text style={{ fontSize: 16 }}>Login with Google</Text>
+        <AntDesign name="google" size={24} color="#000" style={styles.socialIcon} />
+        <Text style={{ fontSize: 16 }}>Login with Google</Text>
       </View>
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Don't have an account? </Text>
         <TouchableOpacity
-          onPress={() => console.log('Signup button pressed')}
+          onPress={() => navigation.navigate('Signup')}
         >
           <Text style={styles.signup}>Sign Up</Text>
         </TouchableOpacity>

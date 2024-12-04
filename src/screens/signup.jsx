@@ -16,7 +16,7 @@ import {
 } from "react-native-responsive-screen";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Signup() {
+export default function Signup({navigation}) {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
   const [isPasswordVisible1, setPasswordVisibility1] = useState(false);
   const [name, setname] = useState('');
@@ -54,6 +54,7 @@ const handleSubmit = async () => {
 
       console.log('Form submitted:', { name, email, pass });
       await signup(email, pass);
+      navigation.navigate('Login');
 
 };
   return (
@@ -122,7 +123,7 @@ const handleSubmit = async () => {
       </TouchableOpacity>
       <View style={styles.alreadycont}>
         <Text>Already have account?</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
           <Text style={styles.login}> Login</Text>
         </TouchableOpacity>
       </View>
